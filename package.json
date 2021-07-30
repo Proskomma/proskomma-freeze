@@ -1,0 +1,31 @@
+{
+  "name": "proskomma-freeze",
+  "version": "0.5.0",
+  "description": "Utility to freeze and thaw multiple Proskomma docSets",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "bash -c \"babel-tape-runner test/code/*.js | node_modules/tap-summary/bin/cmd.js\"",
+    "rawTest": "babel-tape-runner test/code/*.js",
+    "oneTest": "babel-tape-runner test/code/$TESTSCRIPT.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proskomma/proskomma-freeze.git"
+  },
+  "author": "Mark Howe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Proskomma/proskomma-freeze/issues"
+  },
+  "homepage": "https://github.com/Proskomma/proskomma-freeze#readme",
+  "dependencies": {
+    "jszip": "^3.7.0"
+  },
+  "devDependencies": {
+    "babel-tape-runner": "^3.0.0",
+    "fs-extra": "^10.0.0",
+    "proskomma": "^0.4.50",
+    "tap-summary": "^4.0.0",
+    "tape": "^5.3.0"
+  }
+}
