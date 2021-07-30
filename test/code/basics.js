@@ -53,13 +53,6 @@ test(
             const frozen = await freeze(pk);
             const pk2 = new Proskomma();
             await thaw(pk2, frozen);
-            /* MAD AND WRONG */
-            function sleep(ms) {
-                return new Promise((resolve) => {
-                    setTimeout(resolve, ms);
-                });
-            }
-            await sleep(1000);
             t.equal(pk2.nDocSets(), 2);
             t.ok('eng_drh' in pk2.docSets);
             t.ok('eng_web' in pk2.docSets);

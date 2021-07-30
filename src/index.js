@@ -12,12 +12,16 @@ const freeze = async pk => {
 const thaw = async (pk, frozen) => {
     const zip = new JSZip();
     await zip.loadAsync(frozen, {base64: true});
-    zip.forEach(async (path, zipEntry) => {
-            const content = JSON.parse(await zipEntry.async('binarystring'));
-            pk.loadSuccinctDocSet(content);
-            console.log('in forEach', path, pk.nDocSets());
+    const contentPromises = [];
+    zip.forEach((path, zipEntry) => {
+            const content = zipEntry.async('binarystring');
+            contentPromises.push(content);
         });
-    console.log('after forEach', pk.nDocSets());
+    await Promise.all(contentPromises)
+        .then(
+            (contents) =>
+                contents.forEach(
+                    c => pk.loadSuccinctDocSet(JSON.parse(c))));
 }
 
 module.exports = {freeze, thaw};
