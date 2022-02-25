@@ -49,13 +49,40 @@ test(
     `Thaw (${testGroup})`,
     async function (t) {
         try {
-            t.plan(3);
+            t.plan(4);
             const frozen = await freeze(pk);
             const pk2 = new Proskomma();
-            await thaw(pk2, frozen);
+            await thaw(
+                pk2,
+                frozen,
+            );
             t.equal(pk2.nDocSets(), 2);
             t.ok('eng_drh' in pk2.docSets);
             t.ok('eng_web' in pk2.docSets);
+            t.equal(pk2.docSets['eng_web'].selectors.lang, 'eng')
+        } catch (err) {
+            console.log(err);
+        }
+    },
+);
+
+test(
+    `Thaw with selector rewrite (${testGroup})`,
+    async function (t) {
+        try {
+            t.plan(4);
+            const frozen = await freeze(pk);
+            const pk2 = new Proskomma();
+            await thaw(
+                pk2,
+                frozen,
+                fo => ({...fo, lang: "abc"}),
+                io => `xyz-abc_${io.split('_')[1]}`
+                );
+            t.equal(pk2.nDocSets(), 2);
+            t.ok('xyz-abc_drh' in pk2.docSets);
+            t.ok('xyz-abc_web' in pk2.docSets);
+            t.equal(pk2.docSets['xyz-abc_web'].selectors.lang, 'abc')
         } catch (err) {
             console.log(err);
         }
