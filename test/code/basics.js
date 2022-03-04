@@ -26,6 +26,13 @@ const pk = pkWithDocs([
     }],
 ]);
 
+const pk3 = pkWithDocs([
+    ['../test_data/78-GALspavbl.usfm', {
+        lang: 'spa',
+        abbr: 'vbl',
+    }],
+]);
+
 test(
     `Freeze (${testGroup})`,
     async function (t) {
@@ -83,6 +90,27 @@ test(
             t.ok('xyz-abc_drh' in pk2.docSets);
             t.ok('xyz-abc_web' in pk2.docSets);
             t.equal(pk2.docSets['xyz-abc_web'].selectors.lang, 'abc')
+        } catch (err) {
+            console.log(err);
+        }
+    },
+);
+
+test(
+    `Thaw with accented headers (${testGroup})`,
+    async function (t) {
+        try {
+            t.plan(4);
+            const frozen = await freeze(pk3);
+            const pk2 = new Proskomma();
+            await thaw(
+                pk2,
+                frozen,
+            );
+            t.equal(pk2.nDocSets(), 1);
+            t.ok('spa_vbl' in pk2.docSets);
+            t.equal(pk2.docSets['spa_vbl'].selectors.lang, 'spa');
+            t.equal(Object.values(pk2.documents)[0].headers['h'], 'Gálatas')
         } catch (err) {
             console.log(err);
         }

@@ -4,7 +4,8 @@ const freeze = async pk => {
     const docSets = Object.keys(pk.docSets);
     const zip = new JSZip();
     for (const docSet of docSets) {
-        zip.file(docSet, JSON.stringify(pk.serializeSuccinct(docSet)));
+        const stringified = JSON.stringify(pk.serializeSuccinct(docSet));
+        zip.file(docSet, stringified, {binary: true});
     }
     return zip.generateAsync({type: "base64"});
 }
