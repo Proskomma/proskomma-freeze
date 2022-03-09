@@ -1,6 +1,6 @@
 {
   "name": "proskomma-freeze",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Utility to freeze and thaw multiple Proskomma docSets",
   "main": "src/index.js",
   "scripts": {
