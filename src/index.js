@@ -1,4 +1,4 @@
-const JSZip = require('jszip');
+import JSZip from 'jszip';
 
 const freeze = async pk => {
     const docSets = Object.keys(pk.docSets);
@@ -25,7 +25,7 @@ const thaw = async (pk, frozen, selectorFunc, idFunc) => {
             (contents) =>
                 contents.forEach(
                     c => {
-                        cJson = JSON.parse(c);
+                        const cJson = JSON.parse(c);
                         cJson.metadata.selectors = selectorFunc(cJson.metadata.selectors);
                         cJson.id = idFunc(cJson.id);
                         return pk.loadSuccinctDocSet(cJson)
@@ -34,4 +34,4 @@ const thaw = async (pk, frozen, selectorFunc, idFunc) => {
         )
 }
 
-module.exports = {freeze, thaw};
+export {freeze, thaw};

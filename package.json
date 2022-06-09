@@ -1,12 +1,14 @@
 {
   "name": "proskomma-freeze",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Utility to freeze and thaw multiple Proskomma docSets",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "bash -c \"babel-tape-runner test/code/*.js | node_modules/tap-summary/bin/cmd.js\"",
     "rawTest": "babel-tape-runner test/code/*.js",
-    "oneTest": "babel-tape-runner test/code/$TESTSCRIPT.js"
+    "oneTest": "babel-tape-runner test/code/$TESTSCRIPT.js",
+    "build": "babel src -d dist",
+    "prepublishOnly": "rm -fr dist && npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,9 +21,13 @@
   },
   "homepage": "https://github.com/Proskomma/proskomma-freeze#readme",
   "dependencies": {
+    "@babel/core": "^7.17.10",
     "jszip": "^3.7.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "babel-eslint": "^10.1.0",
     "babel-tape-runner": "^3.0.0",
     "fs-extra": "^10.0.0",
     "proskomma": "^0.4.50",
